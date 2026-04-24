@@ -1,4 +1,10 @@
+#include <zephyr/kernel.h>
+
+#if IS_ENABLED(CONFIG_NICE_VIEW_GEM_PERIPHERAL_CENTRAL_RELAY)
+#include "widgets/screen_peripheral_central_relay.h"
+#else
 #include "widgets/screen.h"
+#endif
 
 #include <zephyr/logging/log.h>
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
