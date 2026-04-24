@@ -22,7 +22,7 @@
     IS_ENABLED(CONFIG_NICE_VIEW_WIDGET_INVERTED) ? lv_color_white() : lv_color_black()
 
 struct status_state {
-    uint8_t battery;
+    uint8_t battery; /* 0 = no data yet, rendered as "--%" */
     bool charging;
 #if !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
     struct zmk_endpoint_instance selected_endpoint;
@@ -34,6 +34,19 @@ struct status_state {
     uint8_t wpm[10];
 #else
     bool connected;
+#if IS_ENABLED(CONFIG_NICE_VIEW_GEM_PERIPHERAL_CENTRAL_RELAY)
+    bool central_relay_received; /* true after first CSR update */
+    /* Central relay connection/battery (prefixed — shown alongside local data) */
+    uint8_t central_relay_battery;
+    bool central_relay_charging;
+    bool central_relay_connected;
+    bool central_relay_bonded;
+    bool central_relay_usb;
+    /* Profile/layer from central relay — standard names for draw_profile_status/draw_layer_status reuse */
+    int active_profile_index;
+    uint8_t layer_index;
+    const char *layer_label;
+#endif
 #endif
 };
 

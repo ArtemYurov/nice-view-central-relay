@@ -1,4 +1,14 @@
-# nice-view-gem
+# nice-view-central-relay
+
+Fork of [nice-view-gem](https://github.com/M165437/nice-view-gem) with central states relay support.
+
+### Fork features
+
+- **Peripheral central relay screen** — shows dual-column status on the peripheral display using [zmk-central-states-relay](https://github.com/ArtemYurov/zmk-central-states-relay):
+  - Left column: peripheral BT connection + battery
+  - Right column: central BT/USB connection + battery
+  - Bottom: BT profile dots + layer name from central
+- Enable with `CONFIG_NICE_VIEW_GEM_PERIPHERAL_CENTRAL_RELAY=y` — upstream functionality is fully preserved when disabled
 
 ![Preview](https://github.com/m165437/nice-view-gem/blob/main/.github/assets/preview.jpg?raw=true)
 
@@ -27,15 +37,15 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    - name: m165437 #new entry
-      url-base: https://github.com/M165437 #new entry
+    - name: ArtemYurov #new entry
+      url-base: https://github.com/ArtemYurov #new entry
   projects:
     - name: zmk
       remote: zmkfirmware
       revision: main
       import: app/west.yml
-    - name: nice-view-gem #new entry
-      remote: m165437 #new entry
+    - name: nice-view-central-relay #new entry
+      remote: ArtemYurov #new entry
       revision: main #new entry
   self:
     path: config
@@ -70,6 +80,7 @@ Modify the behavior of this shield by adjusting these options in your personal c
 | `CONFIG_NICE_VIEW_GEM_ANIMATION`           | bool | If you find the animation distracting (or want to save battery), you can turn it off by setting this option to `n`. When disabled, a random animation frame is selected each time you restart your keyboard.                                                      | y       |
 | `CONFIG_NICE_VIEW_GEM_ANIMATION_FRAME`     | int  | When the animation is disabled, you can set this to a specific frame index (1–16) to display instead of a random one.                                                                                                                                             | 0       |
 | `CONFIG_NICE_VIEW_GEM_ANIMATION_MS`        | int  | Controls the animation speed. Higher values increase the delay between frames (for example, `96000` shows a new frame every couple of seconds). The animation has 16 frames; the default value of 960 milliseconds plays it at 60 fps.                            | 960     |
+| `CONFIG_NICE_VIEW_GEM_PERIPHERAL_CENTRAL_RELAY` | bool | Enables the peripheral central relay screen that shows status of both keyboard halves. Requires [zmk-central-states-relay](https://github.com/ArtemYurov/zmk-central-states-relay) module. When disabled, the default peripheral screen (animation + battery) is used. | n       |
 
 ## Credits
 

@@ -54,6 +54,11 @@ config NICE_VIEW_WIDGET_STATUS
     select LV_USE_ANIMIMG
     select LV_USE_ANIMATION
 
+config NICE_VIEW_GEM_PERIPHERAL_CENTRAL_RELAY
+    bool "Show central relay data on peripheral display"
+    default n
+    depends on ZMK_CENTRAL_STATES_RELAY
+
 config NICE_VIEW_WIDGET_INVERTED
     bool "Invert display colors"
 
