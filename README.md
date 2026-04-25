@@ -10,7 +10,7 @@ Fork of [nice-view-gem](https://github.com/M165437/nice-view-gem) with central s
   - Bottom: BT profile dots + layer name from central
 - Enable with `CONFIG_NICE_VIEW_GEM_PERIPHERAL_CENTRAL_RELAY=y` — upstream functionality is fully preserved when disabled
 
-![Preview](https://github.com/m165437/nice-view-gem/blob/main/.github/assets/preview.jpg?raw=true)
+<img src=".github/assets/central-relay-preview.png" alt="Central relay screen on peripheral" width="170">
 
 ### A sleek customization for the nice!view shield
 
