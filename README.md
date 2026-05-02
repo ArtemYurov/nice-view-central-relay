@@ -67,6 +67,7 @@ Finally, make sure to enable the custom status screen in your ZMK configuration:
 ```conf
 CONFIG_ZMK_DISPLAY=y
 CONFIG_ZMK_DISPLAY_STATUS_SCREEN_CUSTOM=y
+CONFIG_NICE_VIEW_GEM_PERIPHERAL_CENTRAL_RELAY=y
 ```
 
 ## Configuration
