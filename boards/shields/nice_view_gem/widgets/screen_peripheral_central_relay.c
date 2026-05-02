@@ -59,19 +59,19 @@ static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 /* --- LEFT column: peripheral connection icon (x=0..23) --- */
 
 static void draw_peripheral_conn_icon(lv_obj_t *canvas, const struct status_state *state) {
-    lv_draw_image_dsc_t img_dsc;
-    lv_draw_image_dsc_init(&img_dsc);
+    lv_draw_img_dsc_t img_dsc;
+    lv_draw_img_dsc_init(&img_dsc);
 
     /* Icon background rect — 24x15, same width as right column */
     lv_draw_rect_dsc_t rect_dsc;
     init_rect_dsc(&rect_dsc, LVGL_FOREGROUND);
-    canvas_draw_rect(canvas, 0, 0, 24, 15, &rect_dsc);
+    lv_canvas_draw_rect(canvas, 0, 0, 24, 15, &rect_dsc);
 
     if (state->connected) {
         /* bt icon 12px wide, centered in 24px rect: (24-12)/2 = 6 */
-        canvas_draw_img(canvas, 6, 0, &bt, &img_dsc);
+        lv_canvas_draw_img(canvas, 6, 0, &bt, &img_dsc);
     } else {
-        canvas_draw_img(canvas, 6, 0, &bt_no_signal, &img_dsc);
+        lv_canvas_draw_img(canvas, 6, 0, &bt_no_signal, &img_dsc);
     }
 }
 
@@ -91,13 +91,13 @@ static void draw_peripheral_battery(lv_obj_t *canvas, const struct status_state 
 
     /* Show bolt when charging, except when battery is fully charged (100%) */
     if (state->charging && state->battery != 100) {
-        canvas_draw_text(canvas, 0, 19, 28, &label_dsc, text);
+        lv_canvas_draw_text(canvas, 0, 19, 28, &label_dsc, text);
 
-        lv_draw_image_dsc_t img_dsc;
-        lv_draw_image_dsc_init(&img_dsc);
-        canvas_draw_img(canvas, 29, 21, &bolt, &img_dsc);
+        lv_draw_img_dsc_t img_dsc;
+        lv_draw_img_dsc_init(&img_dsc);
+        lv_canvas_draw_img(canvas, 29, 21, &bolt, &img_dsc);
     } else {
-        canvas_draw_text(canvas, 0, 19, 34, &label_dsc, text);
+        lv_canvas_draw_text(canvas, 0, 19, 34, &label_dsc, text);
     }
 }
 
@@ -109,24 +109,24 @@ static void draw_central_relay_conn_icon(lv_obj_t *canvas, const struct status_s
         return;
     }
 
-    lv_draw_image_dsc_t img_dsc;
-    lv_draw_image_dsc_init(&img_dsc);
+    lv_draw_img_dsc_t img_dsc;
+    lv_draw_img_dsc_init(&img_dsc);
 
     /* Icon background rect — 24x15, same as left column */
     lv_draw_rect_dsc_t rect_dsc;
     init_rect_dsc(&rect_dsc, LVGL_FOREGROUND);
-    canvas_draw_rect(canvas, 43, 0, 24, 15, &rect_dsc);
+    lv_canvas_draw_rect(canvas, 43, 0, 24, 15, &rect_dsc);
 
     if (state->central_relay_usb) {
-        canvas_draw_img(canvas, 45, 2, &usb, &img_dsc);
+        lv_canvas_draw_img(canvas, 45, 2, &usb, &img_dsc);
     } else if (state->central_relay_bonded) {
         if (state->central_relay_connected) {
-            canvas_draw_img(canvas, 49, 0, &bt, &img_dsc);
+            lv_canvas_draw_img(canvas, 49, 0, &bt, &img_dsc);
         } else {
-            canvas_draw_img(canvas, 49, 0, &bt_no_signal, &img_dsc);
+            lv_canvas_draw_img(canvas, 49, 0, &bt_no_signal, &img_dsc);
         }
     } else {
-        canvas_draw_img(canvas, 44, 0, &bt_unbonded, &img_dsc);
+        lv_canvas_draw_img(canvas, 44, 0, &bt_unbonded, &img_dsc);
     }
 }
 
@@ -151,13 +151,13 @@ static void draw_central_relay_battery(lv_obj_t *canvas, const struct status_sta
 
     /* Show bolt when charging, except when battery is fully charged (100%) */
     if (state->central_relay_charging && state->central_relay_battery != 100) {
-        canvas_draw_text(canvas, 26, 19, 35, &label_dsc, text);
+        lv_canvas_draw_text(canvas, 26, 19, 35, &label_dsc, text);
 
-        lv_draw_image_dsc_t img_dsc;
-        lv_draw_image_dsc_init(&img_dsc);
-        canvas_draw_img(canvas, 62, 21, &bolt, &img_dsc);
+        lv_draw_img_dsc_t img_dsc;
+        lv_draw_img_dsc_init(&img_dsc);
+        lv_canvas_draw_img(canvas, 62, 21, &bolt, &img_dsc);
     } else {
-        canvas_draw_text(canvas, 26, 19, 42, &label_dsc, text);
+        lv_canvas_draw_text(canvas, 26, 19, 42, &label_dsc, text);
     }
 }
 
@@ -166,15 +166,15 @@ static void draw_central_relay_battery(lv_obj_t *canvas, const struct status_sta
 static void draw_not_connected_label(lv_obj_t *canvas) {
     lv_draw_label_dsc_t label_dsc;
     init_label_dsc(&label_dsc, LVGL_FOREGROUND, &pixel_operator_mono, LV_TEXT_ALIGN_CENTER);
-    canvas_draw_text(canvas, 0, 146 + BUFFER_OFFSET_BOTTOM, 68, &label_dsc, "NOT CONN");
+    lv_canvas_draw_text(canvas, 0, 146 + BUFFER_OFFSET_BOTTOM, 68, &label_dsc, "NOT CONN");
 }
 
 /* --- BOTTOM: profile dots without active selection --- */
 
 static void draw_profiles_no_active(lv_obj_t *canvas) {
-    lv_draw_image_dsc_t img_dsc;
-    lv_draw_image_dsc_init(&img_dsc);
-    canvas_draw_img(canvas, 18, 129 + BUFFER_OFFSET_BOTTOM, &profiles, &img_dsc);
+    lv_draw_img_dsc_t img_dsc;
+    lv_draw_img_dsc_init(&img_dsc);
+    lv_canvas_draw_img(canvas, 18, 129 + BUFFER_OFFSET_BOTTOM, &profiles, &img_dsc);
     /* No active dot drawn — all dots appear inactive */
 }
 
@@ -184,7 +184,7 @@ static void draw_profiles_no_active(lv_obj_t *canvas) {
  * ============================================================
  */
 
-static void draw_top(lv_obj_t *widget, const struct status_state *state) {
+static void draw_top(lv_obj_t *widget, lv_color_t cbuf[], const struct status_state *state) {
     lv_obj_t *canvas = lv_obj_get_child(widget, 0);
     fill_background(canvas);
 
@@ -196,10 +196,10 @@ static void draw_top(lv_obj_t *widget, const struct status_state *state) {
     draw_central_relay_conn_icon(canvas, state);
     draw_central_relay_battery(canvas, state);
 
-    rotate_canvas(canvas);
+    rotate_canvas(canvas, cbuf);
 }
 
-static void draw_bottom(lv_obj_t *widget, const struct status_state *state) {
+static void draw_bottom(lv_obj_t *widget, lv_color_t cbuf[], const struct status_state *state) {
     lv_obj_t *canvas = lv_obj_get_child(widget, 2);
     fill_background(canvas);
 
@@ -213,7 +213,7 @@ static void draw_bottom(lv_obj_t *widget, const struct status_state *state) {
         draw_not_connected_label(canvas);
     }
 
-    rotate_canvas(canvas);
+    rotate_canvas(canvas, cbuf);
 }
 
 /*
@@ -230,7 +230,7 @@ static void set_battery_status(struct zmk_widget_screen *widget,
 
     widget->state.battery = state.level;
 
-    draw_top(widget->obj, &widget->state);
+    draw_top(widget->obj, widget->cbuf, &widget->state);
 }
 
 static void battery_status_update_cb(struct battery_status_state state) {
@@ -276,8 +276,8 @@ static void set_connection_status(struct zmk_widget_screen *widget,
         widget->state.central_relay_received = false;
     }
 
-    draw_top(widget->obj, &widget->state);
-    draw_bottom(widget->obj, &widget->state);
+    draw_top(widget->obj, widget->cbuf, &widget->state);
+    draw_bottom(widget->obj, widget->cbuf3, &widget->state);
 }
 
 static void peripheral_status_update_cb(struct peripheral_status_state state) {
@@ -320,8 +320,8 @@ static void set_central_relay_status(struct zmk_widget_screen *widget,
     widget->state.layer_index = state.layer_index;
     widget->state.layer_label = state.layer_label;
 
-    draw_top(widget->obj, &widget->state);
-    draw_bottom(widget->obj, &widget->state);
+    draw_top(widget->obj, widget->cbuf, &widget->state);
+    draw_bottom(widget->obj, widget->cbuf3, &widget->state);
 }
 
 static void central_relay_status_update_cb(struct central_relay_state state) {
@@ -358,22 +358,20 @@ ZMK_SUBSCRIPTION(widget_central_relay_status, zmk_central_states_changed);
 int zmk_widget_screen_init(struct zmk_widget_screen *widget, lv_obj_t *parent) {
     widget->obj = lv_obj_create(parent);
     lv_obj_set_size(widget->obj, SCREEN_HEIGHT, SCREEN_WIDTH);
-    lv_obj_set_style_bg_color(widget->obj, LVGL_BACKGROUND, LV_PART_MAIN);
-    lv_obj_set_style_bg_opa(widget->obj, LV_OPA_COVER, LV_PART_MAIN);
 
     lv_obj_t *top = lv_canvas_create(widget->obj);
     lv_obj_align(top, LV_ALIGN_TOP_RIGHT, 0, 0);
-    lv_canvas_set_buffer(top, widget->cbuf, CANVAS_SIZE, CANVAS_SIZE, CANVAS_COLOR_FORMAT);
+    lv_canvas_set_buffer(top, widget->cbuf, BUFFER_SIZE, BUFFER_SIZE, LV_IMG_CF_TRUE_COLOR);
 
     lv_obj_t *middle = lv_canvas_create(widget->obj);
     lv_obj_align(middle, LV_ALIGN_TOP_RIGHT, BUFFER_OFFSET_MIDDLE, 0);
-    lv_canvas_set_buffer(middle, widget->cbuf2, CANVAS_SIZE, CANVAS_SIZE, CANVAS_COLOR_FORMAT);
+    lv_canvas_set_buffer(middle, widget->cbuf2, BUFFER_SIZE, BUFFER_SIZE, LV_IMG_CF_TRUE_COLOR);
     /* Fill middle canvas once — reserved for future use, no redraw needed */
     fill_background(middle);
 
     lv_obj_t *bottom = lv_canvas_create(widget->obj);
     lv_obj_align(bottom, LV_ALIGN_TOP_RIGHT, BUFFER_OFFSET_BOTTOM, 0);
-    lv_canvas_set_buffer(bottom, widget->cbuf3, CANVAS_SIZE, CANVAS_SIZE, CANVAS_COLOR_FORMAT);
+    lv_canvas_set_buffer(bottom, widget->cbuf3, BUFFER_SIZE, BUFFER_SIZE, LV_IMG_CF_TRUE_COLOR);
 
     sys_slist_append(&widgets, &widget->node);
     widget_battery_status_init();
