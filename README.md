@@ -29,7 +29,7 @@ To use this shield, first add it to your `config/west.yml` by adding a new entry
 > [!IMPORTANT]
 > Always pin both ZMK and this module to matching revisions.
 >
-> - ZMK `v0.3` → use release `v0.3.0`
+> - ZMK `v0.3` → use the `zmk-v0.3` branch
 > - ZMK `main` (Zephyr 4.1+) → use the `main` branch
 
 ```yml
